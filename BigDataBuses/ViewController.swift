@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, ENSideMenuDelegate {
 
     @IBOutlet var mapView: MKMapView!
     
@@ -55,7 +55,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation() //UPDATE THIS; ONLY UPDATES LOCATION ONCE
         
     }
-
+    
+    @IBAction func menuButtonPressed(sender: AnyObject) {
+        self.sideMenuController()?.sideMenu?.toggleMenu()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
