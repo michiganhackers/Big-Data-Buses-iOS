@@ -19,6 +19,7 @@ class SideMenuTableViewController: UITableViewController {
         tableView.separatorStyle = .None
         tableView.backgroundColor = UIColor.clearColor()
         tableView.scrollsToTop = false
+        tableView.scrollEnabled = false
         
         // Preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
