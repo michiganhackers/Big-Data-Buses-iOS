@@ -17,6 +17,8 @@
 		1A9AB3DA1AB2648900CB5FC6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AB3D91AB2648900CB5FC6 /* Images.xcassets */; };
 		1A9AB3DD1AB2648900CB5FC6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A9AB3DB1AB2648900CB5FC6 /* LaunchScreen.xib */; };
 		1A9AB3E91AB2648A00CB5FC6 /* BigDataBusesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AB3E81AB2648A00CB5FC6 /* BigDataBusesTests.swift */; };
+		F642E5381ABBB299005E99F1 /* PageItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642E5371ABBB299005E99F1 /* PageItemController.swift */; };
+		F642E53A1ABBB64B005E99F1 /* BusInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F642E5391ABBB64B005E99F1 /* BusInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		1A9AB3E21AB2648A00CB5FC6 /* BigDataBusesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BigDataBusesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A9AB3E71AB2648A00CB5FC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A9AB3E81AB2648A00CB5FC6 /* BigDataBusesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigDataBusesTests.swift; sourceTree = "<group>"; };
+		F642E5371ABBB299005E99F1 /* PageItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageItemController.swift; sourceTree = "<group>"; };
+		F642E5391ABBB64B005E99F1 /* BusInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 				1A9AB3D21AB2648900CB5FC6 /* AppDelegate.swift */,
 				1A9522841AB7B129005E551E /* BDBNavigationController.swift */,
 				1A9AB3D41AB2648900CB5FC6 /* ViewController.swift */,
+				F642E5391ABBB64B005E99F1 /* BusInfoViewController.swift */,
 				1A9AB3D61AB2648900CB5FC6 /* Main.storyboard */,
 				1A9AB3D91AB2648900CB5FC6 /* Images.xcassets */,
 				1A9AB3DB1AB2648900CB5FC6 /* LaunchScreen.xib */,
@@ -95,6 +100,7 @@
 				1A9522861AB7B1FA005E551E /* ENSideMenu.swift */,
 				1A9522881AB7B249005E551E /* ENSideMenuNavigationController.swift */,
 				1A95228A1AB7B36E005E551E /* SideMenuTableViewController.swift */,
+				F642E5371ABBB299005E99F1 /* PageItemController.swift */,
 			);
 			path = BigDataBuses;
 			sourceTree = "<group>";
@@ -173,6 +179,7 @@
 				TargetAttributes = {
 					1A9AB3CC1AB2648900CB5FC6 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = ENGRG675W3;
 					};
 					1A9AB3E11AB2648A00CB5FC6 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -226,6 +233,8 @@
 			files = (
 				1A9522871AB7B1FA005E551E /* ENSideMenu.swift in Sources */,
 				1A95228B1AB7B36E005E551E /* SideMenuTableViewController.swift in Sources */,
+				F642E5381ABBB299005E99F1 /* PageItemController.swift in Sources */,
+				F642E53A1ABBB64B005E99F1 /* BusInfoViewController.swift in Sources */,
 				1A9AB3D51AB2648900CB5FC6 /* ViewController.swift in Sources */,
 				1A9AB3D31AB2648900CB5FC6 /* AppDelegate.swift in Sources */,
 				1A9522891AB7B249005E551E /* ENSideMenuNavigationController.swift in Sources */,
@@ -354,9 +363,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BigDataBuses/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -364,9 +376,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = BigDataBuses/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
