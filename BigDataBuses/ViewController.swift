@@ -10,12 +10,15 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, ENSideMenuDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
     @IBOutlet var mapView: MKMapView!
     
+    var routeRenderers = [MKPolyline: MKPolylineRenderer]()
+    
     let locationManager = CLLocationManager()
     let span = MKCoordinateSpanMake(0.05, 0.05)
+    let busData = BusData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +48,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ENSideMenuDel
         annotation.subtitle = "London"
         
         mapView.addAnnotation(annotation)
+        
+        busData.getRoutes {
+            
+            for route in self.busData.routes {
+                self.mapView.addOverlay(route.path)
+                
+                let renderer = MKPolylineRenderer(polyline: route.path)
+                renderer.strokeColor = UIColor.blueColor()
+                
+                self.routeRenderers[route.path] = renderer
+            }
+        }
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -57,14 +72,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, ENSideMenuDel
     }
     
     @IBAction func menuButtonPressed(sender: AnyObject) {
-        self.sideMenuController()?.sideMenu?.toggleMenu()
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        return routeRenderers[overlay as MKPolyline]
+    }
 }
 
