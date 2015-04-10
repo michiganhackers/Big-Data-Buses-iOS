@@ -60,6 +60,7 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
                 self.routeRenderers[route.path] = renderer
             }
         }
+        
     }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
@@ -71,13 +72,20 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
     }
     
-    @IBAction func menuButtonPressed(sender: AnyObject) {
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        switch segue.identifier! {
+        case "showRoutes":
+            let nc = segue.destinationViewController as UINavigationController
+            let routesVC = nc.viewControllers.first as RoutesViewController
+            routesVC.routes = busData.routes
+        default:
+            assertionFailure("unknown segue identifier")
+        }
     }
     
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
