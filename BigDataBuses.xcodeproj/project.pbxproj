@@ -173,11 +173,11 @@
 				TargetAttributes = {
 					1A9AB3CC1AB2648900CB5FC6 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 568Y97QPQ2;
+						DevelopmentTeam = ENGRG675W3;
 					};
 					1A9AB3E11AB2648A00CB5FC6 = {
 						CreatedOnToolsVersion = 6.1.1;
-						DevelopmentTeam = 568Y97QPQ2;
+						DevelopmentTeam = ENGRG675W3;
 						TestTargetID = 1A9AB3CC1AB2648900CB5FC6;
 					};
 				};

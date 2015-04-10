@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, RoutesViewControllerDelegate {
 
     @IBOutlet var mapView: MKMapView!
     
@@ -19,6 +19,28 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
     let locationManager = CLLocationManager()
     let span = MKCoordinateSpanMake(0.05, 0.05)
     let busData = BusData()
+    
+    var selectedRouteIDs: NSSet = NSSet(){
+        didSet{
+            
+                mapView.removeOverlays(mapView.overlays)
+            
+            for id in selectedRouteIDs {
+                let id = id as Int
+                
+                let route = busData.routes[id]!
+                
+                self.mapView.addOverlay(route.path)
+                
+                let renderer = MKPolylineRenderer(polyline: route.path)
+                renderer.strokeColor = UIColor.blueColor()
+                
+                self.routeRenderers[route.path] = renderer
+            }
+        }
+    }
+    
+    var busInfoDataSource: BusInfoDataSource!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,14 +73,9 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         
         busData.getRoutes {
             
-            for route in self.busData.routes {
-                self.mapView.addOverlay(route.path)
-                
-                let renderer = MKPolylineRenderer(polyline: route.path)
-                renderer.strokeColor = UIColor.blueColor()
-                
-                self.routeRenderers[route.path] = renderer
-            }
+            self.selectedRouteIDs = NSSet(array: Array(self.busData.routes.keys))
+            
+           
         }
         
     }
@@ -77,12 +94,22 @@ class ViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDele
         // Dispose of any resources that can be recreated.
     }
     
+    func routesViewControllerDidFinish(routesViewController: RoutesViewController) {
+        selectedRouteIDs = routesViewController.selectedRouteIDs.copy() as NSSet
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier! {
         case "showRoutes":
             let nc = segue.destinationViewController as UINavigationController
             let routesVC = nc.viewControllers.first as RoutesViewController
-            routesVC.routes = busData.routes
+            routesVC.routes = Array(busData.routes.values)
+            routesVC.selectedRouteIDs = selectedRouteIDs.mutableCopy() as NSMutableSet
+            routesVC.delegate = self
+        case "EmbedBusInfoViewController":
+            let pageVC = segue.destinationViewController as UIPageViewController
+            busInfoDataSource = BusInfoDataSource(pageViewController: pageVC)
         default:
             assertionFailure("unknown segue identifier")
         }

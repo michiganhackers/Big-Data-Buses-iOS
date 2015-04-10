@@ -8,45 +8,35 @@
 
 import UIKit
 
-class BusInfoViewController: UIViewController, UIPageViewControllerDataSource {
+class BusInfoDataSource: NSObject, UIPageViewControllerDataSource {
     
-    // MARK: - Variables
-    private var pageViewController: UIPageViewController?
-    
-    // Initialize it right away here
-    private let contentImages = ["nature_pic_1.png", "nature_pic_2.png"];
-    private let titleOptions = ["Bus Routes" , "Bus Stops"];
-    
-    // MARK: - View Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        createPageViewController()
-        setupPageControl()
-    }
-    
-    private func createPageViewController() {
+    init(pageViewController: UIPageViewController) {
         
-        let pageController = self.storyboard!.instantiateViewControllerWithIdentifier("PageController") as UIPageViewController
-        pageController.dataSource = self
+        self.pageViewController = pageViewController
+        
+        super.init()
+        
+        pageViewController.dataSource = self
         
         if contentImages.count > 0 {
             let firstController = getItemController(0)!
             let startingViewControllers: NSArray = [firstController]
-            pageController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
+            pageViewController.setViewControllers(startingViewControllers, direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
         }
         
-        pageViewController = pageController
-        addChildViewController(pageViewController!)
-        self.view.addSubview(pageViewController!.view)
-        pageViewController!.didMoveToParentViewController(self)
-    }
-    
-    private func setupPageControl() {
         let appearance = UIPageControl.appearance()
         appearance.pageIndicatorTintColor = UIColor.grayColor()
         appearance.currentPageIndicatorTintColor = UIColor.whiteColor()
         appearance.backgroundColor = UIColor.darkGrayColor()
     }
+    
+    // MARK: - Variables
+    private let pageViewController: UIPageViewController
+    
+    // Initialize it right away here
+    private let contentImages = ["nature_pic_1.png", "nature_pic_2.png"];
+    private let titleOptions = ["Bus Routes" , "Bus Stops"];
+    
     
     // MARK: - UIPageViewControllerDataSource
     
@@ -75,10 +65,9 @@ class BusInfoViewController: UIViewController, UIPageViewControllerDataSource {
     private func getItemController(itemIndex: Int) -> PageItemController? {
         
         if itemIndex < contentImages.count {
-            let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as PageItemController
+            let pageItemController = pageViewController.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as PageItemController
             pageItemController.itemIndex = itemIndex
             pageItemController.imageName = contentImages[itemIndex]
-         
             
             return pageItemController
         }

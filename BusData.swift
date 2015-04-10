@@ -41,7 +41,7 @@ struct Route {
 
 class BusData {
     
-    var routes = [Route]();
+    var routes = [Int: Route]();
     var routesData = NSData();
     
     func test(){
@@ -62,7 +62,11 @@ class BusData {
             
             dispatch_async(dispatch_get_main_queue()) {
                 
-                self.routes = objects.map { Route(jsonData: $0) }
+                for object in objects {
+                    let route = Route(jsonData: object)
+                    self.routes[route.id] = route
+                }
+                
                 completionBlock()
             }
             

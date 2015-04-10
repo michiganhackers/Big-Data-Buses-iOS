@@ -8,10 +8,19 @@
 
 import UIKit
 
+protocol RoutesViewControllerDelegate: class {
+    func routesViewControllerDidFinish(routesViewController: RoutesViewController)
+}
+
 class RoutesViewController: UITableViewController {
     
     var routes: [Route] = []
     var selectedRouteIDs = NSMutableSet()
+    var delegate: RoutesViewControllerDelegate?
+    
+    @IBAction func doneButtonAction() {
+        delegate?.routesViewControllerDidFinish(self)
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return routes.count
